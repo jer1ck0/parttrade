@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parttrade</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+  </head>
+
+  <body>
+  <header>
+  <div id="main-head">
+  <p>
+  <%= link_to "Заказы", {controller: "orders", action: "index"}, class: "main-menu" %>
+  <%= link_to "Клиенты", {controller: "users", action: "index"}, class: "main-menu"  %>
+  <%= link_to "Финансы", {controller: "finances", action: "index"}, class: "main-menu" %>
+  </p>
+
+  
+  </div>
+  </header>
+    <%= yield %>
+  </body>
+</html>

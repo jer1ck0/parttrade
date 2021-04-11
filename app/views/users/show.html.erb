@@ -1,0 +1,27 @@
+<div>
+  <h4 class="title">Клиент № <%= @user.id %>: <%= @user.firstname + " " + @user.secondname%><%= link_to "Создать заказ", controller: "orders", action: "new"%></h4>
+<p>
+<table>
+<thead>
+<td><h4>Информация:</h4></td>
+<td><h4>Авто  <%= link_to '+', :controller => 'cars', :action => 'new' %></h4> </td>
+</thead>
+<tr>
+<td>
+<b>Имя: </b><%= @user.firstname %><br>
+<b>Фамилия: </b><%= @user.secondname %><br>
+<b>Телефон: </b><%= @user.phone %><br>
+<b>Почта: </b><%= @user.email %><br>
+<b>Адрес: </b><%= @user.adress %><br>
+<b>Комментарий: </b><%= @user.comment %><br>
+<b>Роль: </b><%= @user.role %><br>
+<b>Админ? </b><%= @user.admin.nil? ? "Не админ" : "Админ"%><br>
+</td>
+<td>
+<%= render partial: "cars_list" %>
+</td>
+</tr>
+</table>
+<%= render partial: "orders_list" %>
+</p>
+</div>

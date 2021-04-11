@@ -1,0 +1,11 @@
+<div>
+  <h4 class="title">Форма заказа:</h4>
+<%= form_for @request do |form| %>
+  <%= form.text_field :name, placeholder: "Ваше имя" %><br>
+  <%= form.email_field :email, placeholder: "Ваша почта" %><br>
+  <%= form.telephone_field :phone, placeholder: "Ваш телефон"  %><br>
+  <%= form.text_field :vin, placeholder: "VIN Code"  %><br>
+  <%= form.text_area :message, placeholder: "Введите Ваш заказ" %><br>
+  <%= form.submit "Отправить заказ" %><br>
+<% end %>
+</div>

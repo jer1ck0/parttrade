@@ -1,0 +1,17 @@
+<div class="title-div"><h4>Клиенты</h4></div>
+<table>
+<tr>
+<th>№</th><th>Клиент</th><th>Телефон</th><th>Адрес</th><th>Коммент</th><th></th>
+</tr>
+<% @users.each do |o| %>
+<tr>
+<td><%= link_to o.id, user_path(o.id)%></td>
+<td><%= o.firstname << " " << o.secondname %></td>
+<td><%= o.phone %></td>
+<td><%= o.adress %></td>
+<td><%= o.comment %></td>
+<td><%= link_to "Редактировать", edit_user_path(o.id) %> <%= link_to 'Х', { action: :destroy, id: o.id }, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>
+<% end %>
+</table>
+<%= link_to 'Добавить клиента', :controller => 'users', :action => 'new' %>

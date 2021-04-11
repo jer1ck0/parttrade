@@ -1,0 +1,24 @@
+<%= form_for(car) do |f| %>
+  <% if car.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(car.errors.count, "error") %> prohibited this car from being saved:</h2>
+
+      <ul>
+      <% car.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.text_field :vin, placeholder: "VIN номер" %><br>
+    <%= f.text_field :vendor, placeholder: "Производитель" %><br>
+    <%= f.text_field :model, placeholder: "Модель" %><br>
+    <%= f.text_field :year, placeholder: "Год выпуска" %><br>
+    <%= f.text_field :mileage, placeholder: "Пробег, тыс.км" %><br>
+    <%= f.select :user_id, User.all.collect {|p| [ p.firstname + " " + p.secondname, p.id ] }, { include_blank: true } %><br>
+    <%= f.text_field :comment, placeholder: "Комментарий" %><br>
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,18 @@
+<div class="title-div"><h4>Заявки</h4></div>
+<table>
+<tr>
+<th>№</th><th>Телефон</th><th>Почта</th><th>Сообщение</th><th>Действия</th>
+</tr>
+<% @requests.each do |r| %>
+<tr>
+<td><%= r.id %></td>
+<td><%= r.phone %></td>
+<td><%= r.email %></td>
+<td><%= r.message %></td>
+<td>
+<%= link_to 'Создать заказ', controller: 'orders', action: 'new', phone: r.phone, message: r.message %>     
+<%= link_to "Удалить запрос", requests_path(r.id), method: :delete, data: { confirm: 'Уверены что хотите удалить этот запрос?' }%>
+</td>
+</tr>
+<% end %>
+</table>

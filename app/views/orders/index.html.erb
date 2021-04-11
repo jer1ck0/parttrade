@@ -1,0 +1,15 @@
+<div class="title-div"><h4>Заказы</h4></div>
+<table>
+<tr>
+<th>№</th><th>Клиент</th><th>Статус</th><th>Комментарий</th>
+</tr>
+<% @orders.each do |o| %>
+<tr onclick="window.location.href='orders/<%= o.id %>'; return false">
+<td><%= o.id %></td>
+<td><%= User.find(o.user_id).firstname %></td>
+<td><%= o.status %></td>
+<td><%= o.comment %></td>
+</tr>
+<% end %>
+</table>
+<%= link_to 'Создать заказ', :controller => 'orders', :action => 'new' %>

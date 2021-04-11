@@ -1,0 +1,15 @@
+<div>
+  <h4 class="title">Новый клиент</h4>
+<%= form_for @client do |client| %>
+  <% if params[:phone].present? %>
+  <%= client.telephone_field :phone, value: params[:phone] %><br>
+  <% else %>
+  <%= client.telephone_field :phone, placeholder: "введите телефон" %><br>
+  <% end %>
+  <%= client.text_field :firstname, placeholder: "Ваше имя" %><br>
+  <%= client.text_field :secondname, placeholder: "Ваша фамилия" %><br>
+  <%= client.email_field :email, placeholder: "Ваша почта" %><br>
+  <%= client.text_field :adress, placeholder: "Адрес"  %><br>
+  <%= client.submit "Сохранить клиента" %><br>
+<% end %>
+</div>

@@ -1,0 +1,16 @@
+<div class="title-div"><h4>Клиенты</h4></div>
+<table>
+<tr>
+<th>№</th><th>Клиент</th><th>Телефон</th><th>Адрес</th><th></th>
+</tr>
+<% @clients.each do |o| %>
+<tr onclick="window.location.href='clients/<%= o.id %>'; return false">
+<td><%= o.id %></td>
+<td><%= o.firstname << " " << o.secondname %></td>
+<td><%= o.phone %></td>
+<td><%= o.adress %></td>
+<td><%= link_to "Редактировать", edit_client_path(o.id) %></td>
+</tr>
+<% end %>
+</table>
+<%= link_to 'Добавить клиента', :controller => 'clients', :action => 'new' %>

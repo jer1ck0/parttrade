@@ -1,0 +1,48 @@
+<div class="title-div">
+  <h4>Заказ № <%= @order.id %> от <%= @order.created_at %><br>
+  от <%= link_to @order.user.name_with_initial, user_path(@order.user_id)%><br>
+  Менеджер: <%= link_to User.find(@order.manager).name_with_initial, user_path(@order.manager)%><br>
+  Статус: <%= @order.status %><br>
+  Комментарий: <%=@order.comment %><br>
+  Итого: <%= @goods.collect {|good| good.outercost}.sum %> руб. <br>
+  Оплачено: <%= @finances.collect {|fin| fin.value}.sum %> руб. <br>
+  Задолженность: <%= @goods.collect {|good| good.outercost}.sum - @finances.collect {|fin| fin.value}.sum %> руб. <br>
+  Прибыль: <%= @goods.collect {|good| good.outercost - good.cost}.sum %> руб. <br>
+
+  </h4></div>
+<div class="body-div">
+    <h3>В заказе: </h3> <%= link_to "Добавить позицию", new_good_path(:order_id => @order.id) %>
+    <% if @goods != [] %>
+    <table class="order-table">
+        <tr><th>PartNumber</th><th>Входная цена</th><th>Отпускная цена</th><th>Дата прихода</th></tr>
+        <% @goods.each do |good| %>
+        <tr>
+          <td><%= good.partnumber %></td>
+          <td><%= good.cost %></td>
+          <td><%= good.outercost %></td>
+          <td><%= good.expdate %></td>
+          <td> <%= link_to 'delete', good, :method => :delete, data: {:confirm => "You sure?" }, :title => "Delete #{good.id}" %></td>
+        </tr>
+        <% end %>
+    </table>
+
+    <% end %>
+    
+</div>
+<div class="finance-details">
+    <%= link_to "Добавить платеж", new_finance_path(:order_id => @order.id, :user_id => @order.user_id) %>
+     <% if @finances != [] %>
+    <table class="finances-table">
+        <tr><th>#</th><th>Платеж</th><th>Назначение</th><th>Дата платежа</th></tr>
+        <% @finances.each_with_index do |fin, index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= fin.value %></td>
+          <td><%= fin.target %></td>
+          <td><%= fin.created_at %></td>
+          <td> <%= link_to 'delete', fin, :method => :delete, data: {:confirm => "You sure?" }, :title => "Delete #{fin.id}" %></td>
+        </tr>
+        <% end %>
+    </table>
+    <% end %>
+</div>

@@ -1,0 +1,15 @@
+<div>
+  <h4 class="title">Новый заказ</h4>
+<%= form_for @order do |order| %>
+  <span>Менеджер</span><br>
+  <%= order.collection_select :manager, User.where(admin: true), :id, :name_with_initial %><br>
+  <span>Статус</span><br>
+  <%= order.select :status, ["Новый", "Принят в обработку", "Ожидает согласования", "В пути", "Выдан"]%><br>
+  <span>Клиент</span><br>
+  <%= order.collection_select :user_id, User.all, :id, :name_with_initial, include_blank: true, selected: value_request %><br>
+  <p style="text-align: right; margin-right: 290px; margin-top:-10px; margin-bottom: -10px;"><%= link_to "Новый клиент", :controller => "users", :action => "new" %></p><br>
+  <span>Комментарий</span><br>
+  <%= order.text_area :comment, placeholder: "Введите Ваш комментарий", value: params[:message].present? ? params[:message] : nil %><br>
+  <%= order.submit "Сохранить заказ" %><br>
+<% end %>
+</div>

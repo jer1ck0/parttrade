@@ -1,0 +1,36 @@
+<div class="title-div"><h4>Автомобили</h4></div>
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>VIN</th>
+      <th>Производитель</th>
+      <th>Модель</th>
+      <th>Год</th>
+      <th>Пробег</th>
+      <th>Собственник</th>
+      <th>Комментарий</th>
+      <th>Операции</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cars.each do |car| %>
+      <tr>
+        <td><%= car.id %></td>
+        <td><%= car.vin %></td>
+        <td><%= car.vendor %></td>
+        <td><%= car.model %></td>
+        <td><%= car.year %></td>
+        <td><%= car.mileage %></td>
+        <td><%= link_to (User.find(car.user_id).firstname + " " + User.find(car.user_id).secondname), user_path(User.find(car.user_id)) %></td>
+        <td><%= car.comment %></td>
+        <td><%= link_to 'Show', car %> <%= link_to 'Edit', edit_car_path(car) %> <%= link_to 'Destroy', car, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Car', new_car_path %>
