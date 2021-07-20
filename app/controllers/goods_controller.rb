@@ -14,11 +14,16 @@ class GoodsController < ApplicationController
     
     def create
         @good = Good.new(good_params)
-        if @good.save 
-            redirect_to controller: "orders", action: "show", id: @good.order_id, notice: "Your good just send"
-        else
-            redirect_to :action => "index", notice: "Your good no send"
-        end
+        respond_to do |format|
+            if @good.save 
+                format.html { redirect_to controller: "orders", action: "show", id: @good.order_id, notice: "Your good just send" }
+                format.js 
+                format.json { render json: @user, status: :created, location: @user }
+            else
+                format.html { redirect_to :action => "index", notice: "Your good no send" }
+                format.json { render json: @user.errors, status: :unprocessable_entity }
+            end
+        end        
     end
 
     def edit

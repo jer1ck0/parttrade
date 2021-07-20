@@ -1,0 +1,2 @@
+$(".wrapper").hide();
+$(".positions-in-order-table > tbody").prepend('<tr><td><%= @good.partnumber %></td><td><%= @good.cost %></td><td><%= @good.outercost %></td><td><%= @good.expdate %></td><td> <%= link_to 'delete', @good, :method => :delete, data: {:confirm => "You sure?" }, :title => "Delete #{@good.id}" %></td></tr>');

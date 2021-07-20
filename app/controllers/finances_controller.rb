@@ -4,7 +4,9 @@ class FinancesController < ApplicationController
   # GET /finances
   # GET /finances.json
   def index
-    @finances = Finance.all
+    @start_date = params[:start_date] ? Date.parse(params[:start_date]) : DateTime.now() - 1
+    @end_date = params[:end_date] ? Date.parse(params[:end_date]) : DateTime.now()
+    @finances = Finance.where(created_at: @start_date..@end_date)
   end
 
   # GET /finances/1
@@ -29,6 +31,7 @@ class FinancesController < ApplicationController
     respond_to do |format|
       if @finance.save
         format.html { redirect_to @finance, notice: 'Finance was successfully created.' }
+        format.js
         format.json { render :show, status: :created, location: @finance }
       else
         format.html { render :new }

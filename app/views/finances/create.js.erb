@@ -1,0 +1,2 @@
+<% Rails.logger.info "---------------#{@order.inspect}"%>
+$(".finances-table > tbody").append('<tr><td><%= @order.finances.lenght %></td><td><%= @finance.value %></td><td><%= @finance.target %></td><td><%= @finance.created_at %></td><td> <%= link_to 'delete', @finance, :method => :delete, data: {:confirm => "You sure?" }, :title => "Delete #{@finance.id}" %></td></tr>');

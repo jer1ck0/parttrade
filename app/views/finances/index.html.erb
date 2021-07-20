@@ -1,25 +1,41 @@
 <p id="notice"><%= notice %></p>
+<div class="title-div">Сводка на период <%= @start_date.to_date %> : <%= @end_date.to_date %></div>
+<div class="statistics">
+  
+  <div class="statictics-header">
+    Получено:<%= @finances.income.collect {|i| i.value}.sum %> Потрачено:<%= @finances.outcome.collect {|i| i.value}.sum %>
+  </div>
 
-<h1>Finances</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @finances.each do |finance| %>
-      <tr>
-        <td><%= link_to 'Show', finance %></td>
-        <td><%= link_to 'Edit', edit_finance_path(finance) %></td>
-        <td><%= link_to 'Destroy', finance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+  <div class="statistics-filters">
+    <%= form_tag({:controller => "finances", :action => "index"}, method: 'get', class: "filter") do %>
+      От: <%= date_field_tag :start_date %> До: <%= date_field_tag :end_name %> <%= submit_tag "Поиск" %>
     <% end %>
-  </tbody>
-</table>
+  </div>
+  
+  <div class="statistics-body">
+    <table>
+      <thead>
+        <tr>
+          <th colspan="10"></th>
+        </tr>
+      </thead>
 
-<br>
-
-<%= link_to 'New Finance', new_finance_path %>
+      <tbody>
+        <% @finances.each_with_index do |finance, index| %>
+          <tr>
+            <td><%= index + 1%></td>
+            <td><%= finance.value %></td>
+            <td><%= link_to User.find(finance.user_id).name_with_initial, user_path(finance.user_id)%></td>
+            <td><%= finance.target %></td>
+            <td><%= finance.created_at%></td>
+            <td><%= finance.order_id.nil? ? '' : (link_to Order.find(finance.order_id).id, order_path(finance.order_id)) %></td>
+            <td><%= finance.comment %></td>
+            <td><%= link_to 'Edit', edit_finance_path(finance) %></td>
+            <td><%= link_to 'Destroy', finance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<%# <%= link_to 'New Finance', new_finance_path %>
+</div>
