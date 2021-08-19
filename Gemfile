@@ -32,7 +32,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
+gem 'i18n', '~> 1.8.7'
 gem 'capistrano', '~> 3.11'
 gem 'capistrano-rails', '~> 1.4'
 gem 'capistrano-passenger', '~> 0.2.0'
