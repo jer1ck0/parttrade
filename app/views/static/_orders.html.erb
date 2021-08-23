@@ -1,0 +1,3 @@
+<%= link_to 'Новых заказов ' << Order.where(status: 'Новый').size.to_s, orders_path(status: 'Новый')  %><br>
+<%= link_to 'Заказы в работе ' << Order.where.not(status: 'Новый').size.to_s, orders_path(status: 'Other')  %><br>
+Заказы в работе: <%= Order.where.not(status: 'Новый').size %>

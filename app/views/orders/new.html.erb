@@ -6,10 +6,22 @@
   <span>Статус</span><br>
   <%= order.select :status, ["Новый", "Принят в обработку", "Ожидает согласования", "В пути", "Выдан"]%><br>
   <span>Клиент</span><br>
-  <%= order.collection_select :user_id, User.all, :id, :name_with_initial, include_blank: true, selected: value_request %><br>
-  <p style="text-align: right; margin-right: 290px; margin-top:-10px; margin-bottom: -10px;"><%= link_to "Новый клиент", :controller => "users", :action => "new" %></p><br>
+  <%= order.collection_select :user_id, User.all, :id, :name_with_initial, include_blank: true, selected: value_request %>
+      <%= image_tag "add.png", class: "add_icon", onclick: '$(".wrapper").show()'%><br>
   <span>Комментарий</span><br>
   <%= order.text_area :comment, placeholder: "Введите Ваш комментарий", value: params[:message].present? ? params[:message] : nil %><br>
   <%= order.submit "Сохранить заказ" %><br>
 <% end %>
 </div>
+
+<div class='wrapper'> 
+<div class="modality">
+<div class="close-button-area">
+<span class="close-button" onclick='$(".wrapper").hide()'>X</span>
+</div>
+
+<%= render partial: "users/user_remote_form", user: @user = User.new %>
+</div>
+</div>
+
+

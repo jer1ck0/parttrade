@@ -2,7 +2,11 @@ class OrdersController < ApplicationController
     before_action :set_order, only: [:show, :edit, :update, :destroy]
 
     def index
-        @orders = Order.all
+        if params[:status].present?
+            @orders = Order.where(status: params[:status])
+        else
+            @orders = Order.all
+        end
     end
 
     def show

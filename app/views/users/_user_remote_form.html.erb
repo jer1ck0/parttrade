@@ -1,0 +1,13 @@
+<%= form_for @user, :controller => :user, :action => 'create', :method => :post, :id => 'user-form', :remote => true do |user| %>
+  <% if params[:phone].present? %>
+  <%= user.telephone_field :phone, value: params[:phone] %><br>
+  <% else %>
+  <%= user.telephone_field :phone, placeholder: "Телефон" %><br>
+  <% end %>
+  <%= user.text_field :firstname, placeholder: "Имя" %><br>
+  <%= user.text_field :secondname, placeholder: "Фамилия" %><br>
+  <%= user.email_field :email, placeholder: "Почта" %><br>
+  <%= user.text_field :adress, placeholder: "Адрес"  %><br>
+  <%= user.text_field :comment, placeholder: "Комментарий"  %><br>
+  <%= user.submit "Сохранить" %><br>
+<% end %>

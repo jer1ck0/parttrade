@@ -1,0 +1,8 @@
+<%= form_for @good, :controller => :good, :action => 'create', :method => :post, :id => 'good-form', :remote => true do |good| %>
+  <%= good.text_field :partnumber, placeholder: "Партномер" %><br>
+  <%= good.number_field :outercost, placeholder: "Отпускная цена" %><br>
+  <%= good.number_field :cost, placeholder: "Входящая цена" %><br>
+  <%= good.date_field :expdate, placeholder: "Планируемая дата поставки" %><br>
+   <%= good.hidden_field :order_id, value: order_id %><br>
+  <%= good.submit "Сохранить" %><br>
+<% end %>

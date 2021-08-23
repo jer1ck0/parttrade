@@ -1,20 +1,22 @@
 <div class="title-div">
-  <h4>Заказ № <%= @order.id %> от <%= @order.created_at %><br>
-  от <%= link_to @order.user.name_with_initial, user_path(@order.user_id)%><br>
+  <h4>Заказ: № <%= @order.id %> от <%= @order.created_at.to_date %><br>
+  Клиент: <%= link_to @order.user.name_with_initial, user_path(@order.user_id)%><br>
   Менеджер: <%= link_to User.find(@order.manager).name_with_initial, user_path(@order.manager)%><br>
   Статус: <%= @order.status %><br>
-  Комментарий: <%=@order.comment %><br>
   Итого: <%= @goods.collect {|good| good.outercost}.sum %> руб. <br>
   Оплачено: <%= @finances.collect {|fin| fin.value}.sum %> руб. <br>
   Задолженность: <%= @goods.collect {|good| good.outercost}.sum - @finances.collect {|fin| fin.value}.sum %> руб. <br>
   Прибыль: <%= @goods.collect {|good| good.outercost - good.cost}.sum %> руб. <br>
+  Комментарий: <%=@order.comment %><br>
+  </h4>
+</div>
 
-  </h4></div>
 <div class="body-div">
-    <h3>В заказе: </h3> <%= link_to "Добавить позицию", new_good_path(:order_id => @order.id) %>
+  <%# <h3>В заказе: </h3><%= link_to "Добавить позицию", new_good_path(:order_id => @order.id) %>
+  <%= button_tag( 'Добавить позицию', :type => 'button', :class => "btn-new-position", onclick: '$(".wrapper").show()') %>
+  <table class="positions-in-order-table" >
+    <thead><th>PartNumber</th><th>Входная цена</th><th>Отпускная цена</th><th>Дата прихода</th></thead>
     <% if @goods != [] %>
-    <table class="order-table">
-        <tr><th>PartNumber</th><th>Входная цена</th><th>Отпускная цена</th><th>Дата прихода</th></tr>
         <% @goods.each do |good| %>
         <tr>
           <td><%= good.partnumber %></td>
@@ -24,16 +26,14 @@
           <td> <%= link_to 'delete', good, :method => :delete, data: {:confirm => "You sure?" }, :title => "Delete #{good.id}" %></td>
         </tr>
         <% end %>
-    </table>
-
-    <% end %>
-    
+    <% end %>   
+  </table>
 </div>
 <div class="finance-details">
-    <%= link_to "Добавить платеж", new_finance_path(:order_id => @order.id, :user_id => @order.user_id) %>
+    <%= render partial: 'finances/finances_remote_form', locals: { order_id: @order.id, finance: @finance = Finance.new } %>
      <% if @finances != [] %>
     <table class="finances-table">
-        <tr><th>#</th><th>Платеж</th><th>Назначение</th><th>Дата платежа</th></tr>
+        <thead><td>#</td><td>Платеж</td><td>Назначение</td><td>Дата платежа</td></thead>
         <% @finances.each_with_index do |fin, index| %>
         <tr>
           <td><%= index + 1 %></td>
@@ -45,4 +45,13 @@
         <% end %>
     </table>
     <% end %>
+</div>
+
+<div class='wrapper'> 
+  <div class="modality">
+    <div class="close-button-area">
+      <span class="close-button" onclick='$(".wrapper").hide()'>X</span>
+    </div>
+    <%= render partial: "goods/goods_remote_form", locals: {good: @good = Good.new, order_id: @order.id} %>
+  </div>
 </div>

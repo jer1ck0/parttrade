@@ -1,15 +1,17 @@
 <div class="title-div"><h4>Заказы</h4></div>
+<%= button_tag(:type => 'button', :class => "btn-new-order") do %>
+  <% link_to "Новый заказ", new_order_path %>
+<% end %>
 <table>
 <tr>
 <th>№</th><th>Клиент</th><th>Статус</th><th>Комментарий</th>
 </tr>
-<% @orders.each do |o| %>
+<% @orders.each_with_index do |o, index| %>
 <tr onclick="window.location.href='orders/<%= o.id %>'; return false">
-<td><%= o.id %></td>
+<td><%= index+1 %></td>
 <td><%= User.find(o.user_id).firstname %></td>
 <td><%= o.status %></td>
 <td><%= o.comment %></td>
 </tr>
 <% end %>
 </table>
-<%= link_to 'Создать заказ', :controller => 'orders', :action => 'new' %>

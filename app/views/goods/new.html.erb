@@ -1,11 +1,4 @@
 <div>
   <h4 class="title">Добавление позиции</h4>
-<%= form_for @good do |good| %>
-  <%= good.text_field :partnumber, placeholder: "Партномер" %><br>
-  <%= good.number_field :outercost, placeholder: "Отпускная цена" %><br>
-  <%= good.number_field :cost, placeholder: "Входящая цена" %><br>
-  <%= good.date_field :expdate, placeholder: "Планируемая дата поставки" %><br>
-   <%= good.hidden_field :order_id, value: params[:order_id] %><br>
-  <%= good.submit "Сохранить" %><br>
-<% end %>
+    <%= render partial: 'goods_remote_form' %>
 </div>

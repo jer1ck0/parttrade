@@ -10,8 +10,14 @@
       </ul>
     </div>
   <% end %>
+    <%= payment.label :dc, "Приход"%>
+    <%= payment.radio_button :dc, 1, checked: params[:dc] == '1' %>
+    <br>
+    <%= payment.label :dc, "Расход"%>
+    <%= payment.radio_button :dc, 0, :checked => params[:dc] == '0' %>
+    <br>
     <%= payment.number_field :value, placeholder: "Сумма"%><br>
-    <%=payment.collection_select :user_id, User.all, :id, :name_with_initial, value: params[:user_id] ? params[:user_id] : '' %><br>
+    <%= payment.collection_select :user_id, User.all, :id, :name_with_initial, value: params[:user_id] ? params[:user_id] : '' %><br>
     <%= payment.text_field :target, placeholder: "Назначение" %><br>
     <%= payment.text_field :comment, placeholder: "Комментарий"%><br>
     <%= payment.hidden_field :order_id, placeholder: "Комментарий", value: params[:order_id]%><br>

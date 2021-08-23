@@ -1,0 +1,13 @@
+<% Rails.logger.info "----------------#{params.inspect}" %>
+<%= form_for @finance, :controller => :finance, :action => 'create', :method => :post, :id => 'finance-form', :remote => true do |finance| %>
+    <%= finance.label :dc, "Приход"%>
+    <%= finance.radio_button :dc, 1, checked: params[:dc] == '1' %>
+    <%= finance.label :dc, "Расход"%>
+    <%= finance.radio_button :dc, 0, :checked => params[:dc] == '0' %>
+    <%= finance.number_field :value, placeholder: "Сумма"%>
+    <%= finance.collection_select :user_id, User.all, :id, :name_with_initial, value: params[:user_id] ? params[:user_id] : '' %>
+    <%= finance.text_field :target, placeholder: "Назначение" %>
+    <%= finance.text_field :comment, placeholder: "Комментарий"%>
+    <%= finance.hidden_field :order_id, value:@order.id%>
+    <%= finance.submit "Добавить платеж"%>
+<% end %>
